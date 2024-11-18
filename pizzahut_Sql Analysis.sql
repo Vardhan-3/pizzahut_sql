@@ -75,18 +75,6 @@ LIMIT 3;
 -- ADV
 -- Calculate the percentage contribution of each pizza type as total revenue
 
-SELECT pizza_types.category,
-(sum(order_details.quantity*pizzas.price) / (SELECT
-    ROUND (SUM(order_details.quantity * pizzas.price), 
-    2) AS total_sales
-FROM order_details
-JOIN
-    pizzas ON (pizzas.pizza_id = order_details.pizza_id) )*100,2) AS Revenue
-from pizza_types join pizzas
-on pizza_types.pizza_type_id = pizzas.pizza_type_id
-join order_details
-on order_details.pizza_id = pizzas.pizza_id
-group by pizza_types.category order by revenue DESC;
 
 USE Pizzahut;
 SELECT pizza_types.category,
@@ -97,7 +85,7 @@ SELECT pizza_types.category,
                     order_details
                         JOIN
                     pizzas ON pizzas.pizza_id = order_details.pizza_id) * 100, 2) AS revenue
-FROM pizza types
+FROM pizza_types
         JOIN
     pizzas ON pizza_types.pizza_type_id = pizzas.pizza_type_id
         JOIN
